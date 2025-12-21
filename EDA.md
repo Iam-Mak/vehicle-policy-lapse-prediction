@@ -58,13 +58,16 @@ The numerical features were analyzed for distribution, correlation, and relation
 | -------------------------- | ----------------------------------------------------------------------------------------------------------------------------- | -------- |
 | **polholder_age**          | Younger policyholders (18–29) have highest lapse (~17%), older policyholders more stable                                      | Keep     |
 | **policy_age**             | Most policies are 0–4 years old; lapse slightly higher for new policies                                                       | Keep     |
-| **vehicle_age_difference** | Difference between current vehicle age and purchase age reflects vehicle depreciation; higher differences may influence lapse | Keep     |
+| **vehicl_age** | Current age of the vehicle; older vehicles may be more likely to lapse policies | Keep |
+| **vehicl_agepurchase** | Vehicle age at the time of purchase; reflects initial vehicle value and purchase timing | Keep |
 | **prem_final**             | Reflects final premium paid; outliers exist but are plausible; higher premiums slightly correlate with lower lapse            | Keep     |
 | **prem_last**              | Highly correlated with prem_final (0.95); redundant                                                                           | Drop     |
 | **prem_market**            | Highly correlated with prem_final (0.89); redundant                                                                           | Drop     |
 | **prem_pure**              | Highly correlated with prem_final (0.99); redundant                                                                           | Drop     |
 
-For the numerical features, `polholder_age` is only mildly skewed and can be used as is. `Policy_age` and `prem_final` are skewed, so applying a logarithmic or square root transformation is recommended to reduce skewness. The derived feature `vehicle_age_difference`, which measures how much the vehicle has aged since purchase, is mildly skewed and can be used without transformation. Transformations are applied only when necessary, while features like `vehicle_age_difference` add meaningful information for modeling.
+For the numerical features, `polholder_age` is only mildly skewed and can be used as is. `Policy_age` and `prem_final` are skewed, so applying a logarithmic or square root transformation is recommended to reduce skewness. Original features `vehicl_age` and `vehicl_agepurchase` capture important aspects of the vehicle’s age and purchase timing. Both features are moderately correlated but provide distinct information useful for predicting policy lapse. Their distributions are acceptable, and no transformations are required at this stage. Transformations are applied only when necessary.
+
+
 
 
 ---
@@ -74,7 +77,6 @@ Categorical variables were evaluated by comparing lapse rates across categories.
 
 | Feature                  | Key Observation                                            | Lapse Rate (%) Range |
 | ------------------------ | ---------------------------------------------------------- | -------------------- |
-| **polholder_BMCevol**    | *Down* has highest lapse, *stable* and *up* lower          | 10.0 – 16.0          |
 | **polholder_diffdriver** | *Learner / young drivers* highest, commercial lowest       | 5.0 – 19.0           |
 | **polholder_gender**     | *Males* slightly higher than *females*                     | 12.0 – 13.3          |
 | **polholder_job**        | *Medical* professionals lower lapse than other occupations | 12.1 – 13.3          |
@@ -93,6 +95,7 @@ Ordinal features were analyzed based on their natural ordering, distribution, an
 
 | Feature               | Key Observation / Insight                                               | Decision                      |
 | --------------------- | ----------------------------------------------------------------------- | ----------------------------- |
+| **polholder_BMCevol**    | *Down* has highest lapse, *stable* and *up* lower                    | 10.0 – 16.0                   |
 | **policy_nbcontract** | Highly skewed; most policies have 1 contract; very high values are rare | Keep (group rare high values) |
 | **prem_freqperyear**  | Clear order in payment frequency; reflects customer payment behavior    | Keep                          |
 | **vehicl_powerkw**    | Ordinal with long tail; very high power values are rare                 | Keep (group rare high values) |
