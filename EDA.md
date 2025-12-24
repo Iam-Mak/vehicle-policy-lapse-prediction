@@ -36,7 +36,6 @@ The `eudirectlapse` dataset contains vehicle insurance renewal quotes from an un
 - Premium-related variables can be used to analyze price sensitivity.  
 - The `lapse` variable can be used as a target for predictive modeling.  
 
-
 ------
 
 ## Exploratory Data Analysis Summary

@@ -11,4 +11,16 @@ conda deactivate
 conda env list 
 ```
 
-## Exploratory Data Analysis
+## Project Structure
+project/
+│
+├─ data/
+│   ├─ raw/eudirectlapse.csv
+│   └─ preprocessed/
+│       └─ processed_vehicle_data.pkl
+├─ notebooks/
+│   ├─ 1_EDA.ipynb       
+│   ├─ 2_Model_Training.ipynb 
+├─ scripts/
+└─ README.md
+---
