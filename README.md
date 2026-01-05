@@ -1,25 +1,82 @@
+
 # Vehicle Policy Lapse Prediction
 
+## Overview
 
-## Why the predicting Vehicle Policy Lapses Matters
-Rising vehicle policy lapses are a significant business issue. When a policy is canceled, recurring premium revenue stops immediately, and the customer’s lifetime value is reduced because future renewals no longer occur.
+Vehicle insurance policy lapses are a critical business challenge for insurers. When a policy lapses, recurring premium revenue stops immediately, and the long term value of the customer is lost. Replacing churned customers is significantly more expensive than retaining existing ones, leading to higher acquisition and operational costs.
 
-Policy lapses also increase operating costs, as acquiring new customers requires substantially more spending on marketing, sales efforts, and commissions than retaining existing customers.
+This solution focuses on predicting the likelihood of vehicle insurance policy lapses using data-driven methods, enabling insurers to take proactive and targeted actions to reduce churn.
 
-In addition, a high lapse rate makes the insurance portfolio less stable and less predictable, which can negatively affect overall profitability and how the company is perceived by management and investors.
+<p align="center">
+  <img src="static/vehiclePolicyLapse.png" width="800" alt="Vehicle Policy Lapse Prediction">
+</p>
 
-The use cases covered areas such as identifying potentially churning policyholders, predicting the chance of a new customer coming on board, predictions to improve the claims processing
 
-## Key Challenges
+## Why Policy Lapse Prediction Matters
 
-- Lapses usually occur due to customer inaction (missed renewal or payment) rather than explicit cancellation, making intent difficult to observe.
+* **Protects recurring premium revenue** by identifying at risk policies early
+* **Reduces customer acquisition costs** by improving retention
+* **Improves portfolio stability** and revenue predictability
+* **Enables targeted interventions** for high risk and high value policies
+* **Supports better business decision-making** using predictive insights
 
-- Clear lapse signals often appear very close to the renewal or due date, leaving limited time for effective intervention.
 
-- Customer sensitivity to premium changes at renewal varies widely and is difficult to estimate in advance.
 
-- Many lapse drivers (financial stress, vehicle usage changes, policy relevance) are not directly observable in available data.
+## Key Business Challenges
 
-- The financial impact of lapses is uneven, with high-value and long-tenure policies causing disproportionate revenue loss.
+* Policy lapses often occur due to missed payments or renewals rather than explicit cancellations, making customer intent difficult to observe.
+* Clear lapse indicators typically appear close to renewal dates, leaving limited time for intervention.
+* Customer sensitivity to premium changes varies widely and is difficult to estimate in advance.
+* Several important lapse drivers (such as financial stress or changes in vehicle usage) are not directly observable in available data.
+* The financial impact of lapses is uneven, with certain policies contributing disproportionately to revenue loss.
+
+
+
+## Solution Approach
+
+The solution uses historical policy and customer data to estimate the probability of a policy lapsing. The predictive output can be integrated into business workflows to:
+
+* Identify policies at high risk of lapse
+* Prioritize retention efforts
+* Support proactive customer engagement strategies
+
+The approach is designed to be scalable, interpretable, and aligned with real world business needs.
+
+
+
+## Current Capabilities
+
+* End to end data processing and feature engineering
+* Predictive model for policy lapse risk
+* Probability based risk scoring
+* Simple web interface for generating predictions
+* Structured logging and error handling
+
+
+
+## Planned Enhancements
+
+- [ ] Dockerize the application for consistent builds and deployments
+- [ ] Experiment with multiple machine learning models and perform hyperparameter tuning
+- [ ] Set up CI/CD pipelines for automated testing and deployment to Azure
+- [ ] Integrate MLflow for experiment tracking and model versioning
+- [ ] Use DVC for data and model version control
+- [ ] Add basic model monitoring to track performance and data drift
+
+
+## Summary
+
+This project provides a practical and business focused foundation for predicting vehicle insurance policy lapses. By combining predictive analytics with operational insights, it helps insurers reduce churn, protect revenue, and improve customer retention strategies.
+
 
 ---
+
+#### Acknowledgement
+
+- ChatGPT was used as a development assistant for drafting UI templates, Flask application structure, and implementation ideas. All model development, design choices, and final integrations were reviewed, adapted, and validated as part of this project.
+
+- This project was built as part of learning from the following end to end machine learning project:
+[End to End Machine Learning Project](https://github.com/krishnaik06/mlproject)
+
+
+

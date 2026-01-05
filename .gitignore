@@ -213,3 +213,14 @@ venv/
 env/
 condaenv/
 
+# ML model artifacts
+*.pkl
+*.joblib
+*.sav
+
+# Model artifacts directory
+artifacts/
+logs/
+data/
+*.csv
+
