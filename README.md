@@ -56,8 +56,7 @@ The approach is designed to be scalable, interpretable, and aligned with real wo
 
 ## Planned Enhancements
 
-- [ ] Dockerize the application for consistent builds and deployments
-- [ ] Experiment with multiple machine learning models and perform hyperparameter tuning
+- [x] Dockerize the application for consistent builds and deployments
 - [ ] Set up CI/CD pipelines for automated testing and deployment to Azure
 - [ ] Integrate MLflow for experiment tracking and model versioning
 - [ ] Use DVC for data and model version control

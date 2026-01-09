@@ -1,9 +1,10 @@
+import os
 from flask import Flask, request, render_template
 from src.pipeline.predict_pipeline import CustomData, PredictPipeline
 from src.logger import logger
 
-application = Flask(__name__)
-app = application
+app = Flask(__name__)
+
 
 
 @app.route("/", methods=["GET"])
@@ -50,4 +51,5 @@ def predict():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8000, debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
