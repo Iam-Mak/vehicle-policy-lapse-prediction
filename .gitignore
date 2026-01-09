@@ -1,4 +1,4 @@
-# Byte-compiled / optimized / DLL files
+git add # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
 *$py.class
@@ -224,3 +224,4 @@ logs/
 data/
 *.csv
 
+.DS_Store
