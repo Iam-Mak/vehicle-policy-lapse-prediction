@@ -62,6 +62,7 @@ The approach is designed to be scalable, interpretable, and aligned with real wo
 - [ ] Integrate MLflow for experiment tracking and model versioning
 - [ ] Use DVC for data and model version control
 - [ ] Add basic model monitoring to track performance and data drift
+- [] Integrate an LLM layer to convert model predictions into actionable business decisions, customer communication, and retention strategies
 
 
 ## Summary
@@ -80,3 +81,4 @@ This project provides a practical and business focused foundation for predicting
 
 
 
+> **Note:** > **Note:** This project is part of an ongoing learning process and is continuously evolving.

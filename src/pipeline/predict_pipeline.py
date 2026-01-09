@@ -11,31 +11,37 @@ class PredictPipeline:
     def __init__(
         self,
         model_path="artifacts/model.pkl",
-        preprocessor_path="artifacts/preprocessor.pkl"
+        preprocessor_path="artifacts/preprocessor.pkl",
+        selected_features_path="artifacts/selected_features.npy"
     ):
         try:
             self.model = load_object(model_path)
             self.preprocessor = load_object(preprocessor_path)
+            self.selected_feature_indices = load_object(selected_features_path)
             self.transformer = DataTransformation()
         except Exception as e:
             raise CustomException(e, sys)
 
     def predict(self, features: pd.DataFrame):
         try:
-            
+            # Feature engineering
             features = self.transformer.apply_feature_engineering(features)
 
-            # Transform using saved preprocessor
+            # Preprocessing
             features_transformed = self.preprocessor.transform(features)
 
-            # Predict
-            preds = self.model.predict(features_transformed)
-            probs = self.model.predict_proba(features_transformed)[:, 1]
+            # Feature selection (Top 15)
+            features_selected = features_transformed[:, self.selected_feature_indices]
+
+            # Prediction
+            preds = self.model.predict(features_selected)
+            probs = self.model.predict_proba(features_selected)[:, 1]
 
             return preds, probs
 
         except Exception as e:
             raise CustomException(e, sys)
+
         
 class CustomData:
     def __init__(

@@ -9,8 +9,8 @@ from src.utils import load_object
 
 
 class ModelEvaluation:
-    def __init__(self):
-        pass
+    def __init__(self, threshold=0.35):
+        self.threshold = threshold
 
     def initiate_model_evaluation(self, test_array, model_path):
         try:
@@ -29,8 +29,9 @@ class ModelEvaluation:
             auc = roc_auc_score(y_test, y_pred_proba)
             logger.info(f"ROC AUC Score: {auc}")
 
-            # Optional: classification report
-            y_pred = model.predict(X_test)
+            # Apply threshold
+            y_pred = (y_pred_proba >= self.threshold).astype(int)
+
             logger.info("Classification Report:")
             logger.info("\n" + classification_report(y_test, y_pred))
 

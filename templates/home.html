@@ -93,7 +93,7 @@
         ">
           {{ prediction }}
         </h3>
-        <p><b>Probability:</b> {{ probability }}</p>
+        <p><b>Probability:</b> {{ probability * 100 | round(1) }}%</p>
       </div>
     </div>
   {% endif %}
