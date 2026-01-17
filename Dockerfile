@@ -4,7 +4,11 @@ WORKDIR /app
 
 COPY requirements.txt .
 
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir uv
+RUN uv venv /opt/venv
+RUN uv pip install -r requirements.txt --python /opt/venv/bin/python
+
+ENV PATH="/opt/venv/bin:$PATH"
 
 COPY . .
 

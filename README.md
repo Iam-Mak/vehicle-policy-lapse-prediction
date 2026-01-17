@@ -57,17 +57,16 @@ The approach is designed to be scalable, interpretable, and aligned with real wo
 ## Planned Enhancements
 
 - [x] Dockerize the application for consistent builds and deployments
-- [ ] Set up CI/CD pipelines for automated testing and deployment to Azure
+- [x] Continuous deployment to Azure Web App via GitHub integration
+- [ ] Add automated build and tests to CI
 - [ ] Integrate MLflow for experiment tracking and model versioning
-- [ ] Use DVC for data and model version control
-- [ ] Add basic model monitoring to track performance and data drift
-- [] Integrate an LLM layer to convert model predictions into actionable business decisions, customer communication, and retention strategies
-
+- [ ] Explore DVC for local data and model version control
+- [ ] Design basic model monitoring logic for performance and data drift
+- [ ] Prototype an LLM-based explanation layer for model predictions and business insights
 
 ## Summary
 
 This project provides a practical and business focused foundation for predicting vehicle insurance policy lapses. By combining predictive analytics with operational insights, it helps insurers reduce churn, protect revenue, and improve customer retention strategies.
-
 
 ---
 
@@ -79,5 +78,4 @@ This project provides a practical and business focused foundation for predicting
 [End to End Machine Learning Project](https://github.com/krishnaik06/mlproject)
 
 
-
-> **Note:** > **Note:** This project is part of an ongoing learning process and is continuously evolving.
+> **Note:** This project is part of an ongoing learning process and is continuously evolving toward an end to end production ready workflow.
