@@ -52,11 +52,12 @@ uv pip install -e .
 - templates
   - home.html
   - index.html
+- tests/test_app.py
 - 📄 app.py 
 - Dockerfile 
 - Readme.md
 - 📄 requirements.txt 
-- 📄 setup.py
+- 📄 pyproject.toml
 
 </details>
 
