@@ -58,7 +58,7 @@ The approach is designed to be scalable, interpretable, and aligned with real wo
 
 - [x] Dockerize the application for consistent builds and deployments
 - [x] Continuous deployment to Azure Web App via GitHub integration
-- [ ] Add automated build and tests to CI
+- [x] Add automated build and tests to CI
 - [ ] Integrate MLflow for experiment tracking and model versioning
 - [ ] Explore DVC for local data and model version control
 - [ ] Design basic model monitoring logic for performance and data drift
