@@ -3,10 +3,11 @@ FROM python:3.10.14-slim
 # Python settings
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
+ENV PORT=5000
 
 WORKDIR /app
 
-# Install dependencies (cached layer)
+# Install dependencies
 COPY requirements.txt .
 
 RUN pip install --no-cache-dir uv && \
@@ -17,7 +18,7 @@ RUN pip install --no-cache-dir uv && \
 # Use virtual environment
 ENV PATH="/opt/venv/bin:$PATH"
 
-# Copy application code
+# Copy only API code
 COPY . .
 
 # Create non-root user
@@ -26,4 +27,5 @@ USER appuser
 
 EXPOSE 5000
 
-CMD ["gunicorn", "--bind", "0.0.0.0:5000", "app:app"]
+# Run Flask with Gunicorn
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--workers", "2", "app:app"]

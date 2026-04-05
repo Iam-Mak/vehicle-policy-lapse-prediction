@@ -30,52 +30,66 @@ uv pip install -e .
 <summary>Project Structure</summary>
 
 ### 📁 Project Structure
-- 📁 artifacts
-- 📁 logs
-- 📁 notebook
-- 📁 src  
-  - 📁 components  
-    - 📄 __init__.py  
-    - 📄 data_ingestion.py  
-    - 📄 data_transformation.py  
-    - 📄 model_trainer.py
-    - 📄 model_evaluation.py
-  - 📁 pipeline  
-    - 📄 __init__.py  
-    - 📄 train_pipeline.py  
-    - 📄 predict_pipeline.py
-  - 📄 __init__.py   
-  - 📄 exception.py  
-  - 📄 logger.py  
-  - 📄 utils.py 
-- venv
-- templates
-  - home.html
-  - index.html
-- tests/test_app.py
-- 📄 app.py 
-- Dockerfile 
-- Readme.md
-- 📄 requirements.txt 
-- 📄 pyproject.toml
 
+- 📁 **api-gateway**  
+  - 📄 `app.py`  
+  - 📁 `templates`  
+    - 📄 `home.html`  
+    - 📄 `index.html`  
+  - 📄 `requirements.txt`  
+  - 📄 `Dockerfile`  
+
+- 📁 **model_service**  
+  - 📄 `app.py`  
+  - 📁 `artifacts`  
+    - 📄 `model.pkl`  
+    - 📄 `preprocessor.pkl`  
+    - 📄 `selected_features.npy`  
+  - 📁 `src`  
+    - 📁 `pipeline`  
+      - 📄 `predict_pipeline.py`  
+    - 📁 `components`  
+      - 📄 `data_transformation.py`  
+    - 📄 `exception.py`  
+    - 📄 `logger.py`  
+    - 📄 `utils.py`  
+  - 📄 `requirements.txt`  
+  - 📄 `Dockerfile`  
+
+- 📁 **training**  
+  - 📁 `src`  
+    - 📁 `components`  
+      - 📄 `data_ingestion.py`  
+      - 📄 `data_transformation.py`  
+      - 📄 `model_trainer.py`  
+      - 📄 `model_evaluation.py`  
+    - 📁 `pipeline`  
+      - 📄 `train_pipeline.py`  
+    - 📄 `exception.py`  
+    - 📄 `logger.py`  
+    - 📄 `utils.py`  
+  - 📁 `notebook`  
+  - 📁 `artifacts`  
+  - 📁 `logs`  
+
+- 📁 **tests**  
+  - 📄 `test_app.py`  
+
+- 📁 **docs**  
+
+- 📄 `docker-compose.yml`  
+- 📄 `README.md`  
+- 📄 `pyproject.toml`  
+- 📄 `.gitignore`
 </details>
 
-## Docker 
-Build and run the application locally using Docker.
+## Docker (Local Setup)
 
-```shell
-docker build -t ml-flask-api:v1 .
+Run the complete application (API Gateway + Model Service) using Docker Compose.
 
-docker run -d -p 8000:5000 --name ml-flask-api ml-flask-api:v1
-```
+### Build and Run
 
-## Azure deployment 
-Build the Docker image and push it to Azure Container Registry.
-```shell
-docker build -t vehiclelapseimg.azurecr.io/flask-vp-app:v2 .
-
-docker login vehiclelapseimg.azurecr.io
-
-docker push vehiclelapseimg.azurecr.io/flask-vp-app:v2
+```bash
+docker compose up --build
+docker compose down
 ```
