@@ -1,19 +1,49 @@
+# Python cache
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
 
+# Virtual environments
 .env
+.env*
 .venv
 venv/
+vpenv/
 
+# Git
 .git
 .gitignore
 
-notebooks/
+# Data / artifacts
 data/
 logs/
+notebooks/
+artifacts/
 
+# OS files
 .DS_Store
-vpenv/
-artifacts/*.csv
+
+# Editor / IDE
+.vscode/
+.idea/
+
+# Testing
+tests/
+coverage/
+.pytest_cache/
+
+# Logs & temp files
+*.log
+*.tmp
+*.swp
+*.bak
+
+# Docker (optional)
+Dockerfile
+docker-compose.yml
+
+artifacts/*
+!artifacts/model.pkl
+!artifacts/preprocessor.pkl
+!artifacts/selected_features.npy

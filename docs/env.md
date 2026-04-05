@@ -65,9 +65,9 @@ uv pip install -e .
 Build and run the application locally using Docker.
 
 ```shell
-docker build -t flask-vp-app:v2 .
+docker build -t ml-flask-api:v1 .
 
-docker run -d -p 8000:5000 --name flask-vp-app flask-vp-app:v2
+docker run -d -p 8000:5000 --name ml-flask-api ml-flask-api:v1
 ```
 
 ## Azure deployment 
