@@ -1,81 +1,52 @@
-
 # Vehicle Policy Lapse Prediction
 
-## Overview
-
-Vehicle insurance policy lapses are a critical business challenge for insurers. When a policy lapses, recurring premium revenue stops immediately, and the long term value of the customer is lost. Replacing churned customers is significantly more expensive than retaining existing ones, leading to higher acquisition and operational costs.
-
-This solution focuses on predicting the likelihood of vehicle insurance policy lapses using data-driven methods, enabling insurers to take proactive and targeted actions to reduce churn.
+Service for predicting vehicle insurance policy lapse risk to identify customers likely to not renew before renewal.
 
 <p align="center">
-  <img src="static/vehiclePolicyLapse.png" width="800" alt="Vehicle Policy Lapse Prediction">
+  <img src="api-gateway/static/vehiclePolicyLapse.png" width="800" alt="Vehicle Policy Lapse Prediction">
 </p>
 
 
-## Why Policy Lapse Prediction Matters
 
-* **Protects recurring premium revenue** by identifying at risk policies early
-* **Reduces customer acquisition costs** by improving retention
-* **Improves portfolio stability** and revenue predictability
-* **Enables targeted interventions** for high risk and high value policies
-* **Supports better business decision-making** using predictive insights
+## Overview
+
+Built on ~23k policies with an imbalanced target (~13% lapse).
+The system produces a probability score per policy, used to rank customers for retention actions.
 
 
 
-## Key Business Challenges
+## System
 
-* Policy lapses often occur due to missed payments or renewals rather than explicit cancellations, making customer intent difficult to observe.
-* Clear lapse indicators typically appear close to renewal dates, leaving limited time for intervention.
-* Customer sensitivity to premium changes varies widely and is difficult to estimate in advance.
-* Several important lapse drivers (such as financial stress or changes in vehicle usage) are not directly observable in available data.
-* The financial impact of lapses is uneven, with certain policies contributing disproportionately to revenue loss.
+```
+training → artifacts → model_service → api
+```
 
-
-
-## Solution Approach
-
-The solution uses historical policy and customer data to estimate the probability of a policy lapsing. The predictive output can be integrated into business workflows to:
-
-* Identify policies at high risk of lapse
-* Prioritize retention efforts
-* Support proactive customer engagement strategies
-
-The approach is designed to be scalable, interpretable, and aligned with real world business needs.
+* Training pipeline generates model and preprocessing artifacts
+* Artifacts reused during inference
+* FastAPI service for predictions
+* Dockerized and deployed on Azure
 
 
 
-## Current Capabilities
+## Model
 
-* End to end data processing and feature engineering
-* Predictive model for policy lapse risk
-* Probability based risk scoring
-* Simple web interface for generating predictions
-* Structured logging and error handling
+* Logistic Regression baseline
+* `class_weight="balanced"` for class imbalance
+* Top 15 features selected after removing correlated premium variables
 
+Performance:
 
+* ROC-AUC: 0.60
+* Recall (lapse): 0.96
+* Precision (lapse): 0.13
 
-## Planned Enhancements
-
-- [x] Dockerize the application for consistent builds and deployments
-- [x] Continuous deployment to Azure Web App via GitHub integration
-- [x] Add automated build and tests to CI
-- [ ] Integrate MLflow for experiment tracking and model versioning
-- [ ] Explore DVC for local data and model version control
-- [ ] Design basic model monitoring logic for performance and data drift
-- [ ] Prototype an LLM-based explanation layer for model predictions and business insights
-
-## Summary
-
-This project provides a practical and business focused foundation for predicting vehicle insurance policy lapses. By combining predictive analytics with operational insights, it helps insurers reduce churn, protect revenue, and improve customer retention strategies.
-
----
-
-#### Acknowledgement
-
-- ChatGPT was used as a development assistant for drafting UI templates, Flask application structure, and implementation ideas. All model development, design choices, and final integrations were reviewed, adapted, and validated as part of this project.
-
-- This project was built as part of learning from the following end to end machine learning project:
-[End to End Machine Learning Project](https://github.com/krishnaik06/mlproject)
+The model is intentionally recall-focused to capture potential lapse cases, accepting lower precision.
 
 
-> **Note:** This project is part of an ongoing learning process and is continuously evolving toward an end to end production ready workflow.
+## Observations
+
+* Policy lapse is strongly imbalanced (~13%), making recall a key metric
+* Premium-related variables were highly correlated; reducing them simplified the model without improving ROC-AUC
+* Feature selection improved interpretability but did not significantly change model performance
+
+
