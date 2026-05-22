@@ -3,7 +3,7 @@
 End-to-end machine learning system for predicting vehicle insurance policy lapse risk and supporting proactive customer retention strategies.
 
 <p align="center">
-  <img src="api-gateway/static/vehiclePolicyLapse.png" width="850" alt="Vehicle Insurance Policy Lapse Prediction">
+  <img src="services/api_gateway/static/vehiclePolicyLapse.png" width="850" alt="Vehicle Insurance Policy Lapse Prediction">
 </p>
 
 ## Overview
