@@ -206,22 +206,38 @@ marimo/_static/
 marimo/_lsp/
 __marimo__/
 
-# Conda environments
+# Environments
 vpenv/
 .venv/
 venv/
 env/
 condaenv/
 
-# ML model artifacts
+# Python cache
+__pycache__/
+
+# Logs
+logs/
+
+# Model binaries
 *.pkl
 *.joblib
 *.sav
-
-# Model artifacts directory
-artifacts/
-logs/
 data/
-*.csv
 
+# OS files
 .DS_Store
+
+# Data (hide actual files, keep folder)
+data/*
+!data/README.md
+
+# Artifacts (hide outputs, keep structure)
+artifacts/*
+!artifacts/README.md
+mlflow.db
+notebooks/catboost_info
+notebooks/mlruns
+
+*.pkl
+*.log

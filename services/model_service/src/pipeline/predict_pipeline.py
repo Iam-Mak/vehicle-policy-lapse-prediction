@@ -1,22 +1,14 @@
 import sys
 import pandas as pd
 
-from src.config import load_yaml_config
 from src.exception import CustomException
-from src.paths import (
-    CONFIG_DIR,
-    MODEL_DIR
-)
+from src.logger import logger
 from src.utils import load_object
+from src.paths import MODEL_DIR
+
 from src.components.data_transformation import (
     DataTransformation
 )
-
-
-# Load config
-CONFIG_PATH = CONFIG_DIR / "training.yaml"
-
-config = load_yaml_config(CONFIG_PATH)
 
 
 class PredictPipeline:
@@ -33,10 +25,6 @@ class PredictPipeline:
                 MODEL_DIR / "preprocessor.pkl"
             )
 
-            self.threshold = (
-                config["model"]["threshold"]
-            )
-
             self.model = load_object(
                 model_path
             )
@@ -49,12 +37,23 @@ class PredictPipeline:
                 DataTransformation()
             )
 
+            logger.info(
+                "Prediction pipeline initialized"
+            )
+
         except Exception as e:
             raise CustomException(e, sys)
 
-    def predict( self, features: pd.DataFrame ):
+    def predict(
+        self,
+        features: pd.DataFrame
+    ):
 
         try:
+
+            logger.info(
+                f"Input features:\n{features}"
+            )
 
             # Feature engineering
             features = (
@@ -64,6 +63,11 @@ class PredictPipeline:
                 )
             )
 
+            logger.info(
+                f"Columns after feature engineering: "
+                f"{features.columns.tolist()}"
+            )
+
             # Preprocessing
             features_transformed = (
                 self.preprocessor.transform(
@@ -71,44 +75,51 @@ class PredictPipeline:
                 )
             )
 
-            # Prediction probability
+            logger.info(
+                f"Shape after preprocessing: "
+                f"{features_transformed.shape}"
+            )
+
+            # Prediction
+            predictions = (
+                self.model.predict(
+                    features_transformed
+                )
+            )
+
             probabilities = (
                 self.model.predict_proba(
                     features_transformed
                 )[:, 1]
             )
 
-            # Apply threshold
-            predictions = (
-                probabilities >= self.threshold
-            ).astype(int)
+            logger.info(
+                "Prediction completed successfully"
+            )
 
-            return predictions, probabilities
+            return (
+                predictions,
+                probabilities
+            )
 
         except Exception as e:
             raise CustomException(e, sys)
+
 
 class CustomData:
 
     def __init__(
         self,
-        polholder_age,
-        policy_age,
-        vehicl_age,
-        vehicl_agepurchase,
-        prem_final,
-        policy_nbcontract,
-        prem_freqperyear,
-        polholder_BMCevol,
-        vehicl_powerkw,
-        polholder_diffdriver,
-        polholder_gender,
-        polholder_job,
-        policy_caruse,
-        vehicl_garage,
-        vehicl_region
+        polholder_age: int,
+        policy_age: int,
+        vehicl_age: int,
+        prem_final: float,
+        policy_nbcontract: int,
+        prem_freqperyear: str,
+        polholder_BMCevol: str,
     ):
 
+        # User inputs
         self.polholder_age = (
             polholder_age
         )
@@ -119,10 +130,6 @@ class CustomData:
 
         self.vehicl_age = (
             vehicl_age
-        )
-
-        self.vehicl_agepurchase = (
-            vehicl_agepurchase
         )
 
         self.prem_final = (
@@ -141,43 +148,47 @@ class CustomData:
             polholder_BMCevol
         )
 
+        # Default values
+        self.vehicl_agepurchase = 0
+
         self.vehicl_powerkw = (
-            vehicl_powerkw
+            "75 kW"
         )
 
         self.polholder_diffdriver = (
-            polholder_diffdriver
+            "no"
         )
 
         self.polholder_gender = (
-            polholder_gender
+            "male"
         )
 
         self.polholder_job = (
-            polholder_job
+            "employee"
         )
 
         self.policy_caruse = (
-            policy_caruse
+            "private"
         )
 
         self.vehicl_garage = (
-            vehicl_garage
+            "garage"
         )
 
         self.vehicl_region = (
-            vehicl_region
+            "default"
         )
 
-        # Placeholder columns dropped
-        # during feature engineering
+        # Placeholder columns
         self.prem_last = 0
 
         self.prem_market = 0
 
         self.prem_pure = 0
 
-    def get_data_as_dataframe( self ) -> pd.DataFrame:
+    def get_data_as_dataframe(
+        self
+    ) -> pd.DataFrame:
 
         try:
 
