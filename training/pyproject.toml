@@ -5,22 +5,27 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "VehicleLapsePrediction"
 version = "0.0.1"
-description = "Vehicle lapse prediction package"
-authors = [
-    { name = "Mak", email = "mohd.amilk09@gmail.com" }
-]
+description = "End-to-end vehicle insurance policy lapse prediction system"
 readme = "README.md"
 requires-python = ">=3.9"
 
+authors = [
+    { name = "Mak", email = "mohd.amilk09@gmail.com" }
+]
+
 dependencies = [
-    "Flask",
-    "gunicorn",
+    "flask==3.0.2",
+    "fastapi==0.115.0",
+    "uvicorn==0.30.6",
+    "gunicorn==21.2.0",
+
     "numpy==1.26.4",
     "pandas==2.2.2",
     "scikit-learn==1.5.0",
-    "joblib",
-    "dill",
-    "pytest"
+    "xgboost==2.1.1",
+
+    "joblib==1.4.2",
+    "dill==0.3.8"
 ]
 
 [tool.setuptools]

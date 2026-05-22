@@ -143,19 +143,21 @@ for the current project scope.
 
 ## System Architecture
 
-```text
+services/
+├── api_gateway/
+│   └── Flask web interface
+
+├── model_service/
+│   └── FastAPI prediction service
+
 training/
-├── notebooks/
-├── preprocessing/
-├── model_training/
+├── src/
+│   ├── components/
+│   └── pipeline/
 
 artifacts/
-├── model/
-│   └── modelv2.pkl
+└── model/
 
-model-service/
-├── FastAPI prediction service
-
-api-gateway/
-├── Flask web interface
-```
+notebooks/
+tests/
+docs/

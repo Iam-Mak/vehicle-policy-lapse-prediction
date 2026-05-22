@@ -1,0 +1,14 @@
+paths:
+  data: eudirectlapse.csv
+  artifacts: artifacts/model
+
+model:
+  random_state: 42
+  threshold: 0.45
+
+logging:
+  level: INFO
+  log_dir: logs
+
+data_ingestion:
+  test_size: 0.2

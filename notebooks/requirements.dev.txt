@@ -1,8 +1,0 @@
-numpy==1.26.4
-pandas==2.2.2
-scikit-learn==1.5.0
-seaborn==0.13.2
-
-joblib==1.4.2
-dill==0.3.8
-mlflow==3.12.0

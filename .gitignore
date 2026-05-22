@@ -223,6 +223,7 @@ logs/
 *.pkl
 *.joblib
 *.sav
+data/
 
 # OS files
 .DS_Store
@@ -237,3 +238,6 @@ artifacts/*
 mlflow.db
 notebooks/catboost_info
 notebooks/mlruns
+
+*.pkl
+*.log
