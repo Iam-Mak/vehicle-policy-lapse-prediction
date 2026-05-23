@@ -1,18 +1,26 @@
 services:
-
   api-gateway:
-    build: ./services/api_gateway
+    build:
+      context: .
+      dockerfile: services/api_gateway/Dockerfile
+
     container_name: api-gateway
+
     ports:
       - "8000:5000"
+
     depends_on:
       - model-service
 
   model-service:
-    build: ./services/model_service
+    build:
+      context: .
+      dockerfile: services/model_service/Dockerfile
+
     container_name: model-service
+
     ports:
       - "8001:8001"
 
     volumes:
-      - ./artifacts:/artifacts
+      - ./artifacts:/app/artifacts

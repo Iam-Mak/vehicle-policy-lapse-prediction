@@ -1,67 +1,74 @@
 import os
+
 import requests
+from flask import (
+    Flask,
+    render_template,
+    request,
+)
 
-from flask import Flask, request, render_template
+from shared.config import load_yaml_config
+from shared.logger import logger
+from shared.paths import CONFIG_DIR
 
-from src.logger import logger
+# Load config
+CONFIG_PATH = CONFIG_DIR / "api_gateway.yaml"
+
+config = load_yaml_config(CONFIG_PATH)
 
 
-app = Flask(__name__)
+app = Flask(
+    __name__,
+    static_folder="static",
+    template_folder="templates",
+)
+
+MODEL_SERVICE_URL = config["model_service"]["url"]
 
 
 @app.route("/")
 def index():
 
+    logger.info("Home page accessed")
+
     return render_template("index.html")
 
 
-@app.route("/predict", methods=["GET", "POST"])
+@app.route(
+    "/predict",
+    methods=["GET", "POST"],
+)
 def predict():
 
     if request.method == "POST":
 
         try:
 
+            logger.info("Prediction request received")
+
             data = {
-
-                "polholder_age": int(
-                    request.form.get("polholder_age")
-                ),
-
-                "policy_age": int(
-                    request.form.get("policy_age")
-                ),
-
-                "vehicl_age": int(
-                    request.form.get("vehicl_age")
-                ),
-
-                "prem_final": float(
-                    request.form.get("prem_final")
-                ),
-
-                "policy_nbcontract": int(
-                    request.form.get("policy_nbcontract")
-                ),
-
-                "prem_freqperyear": (
-                    request.form.get("prem_freqperyear")
-                ),
-
-                "polholder_BMCevol": (
-                    request.form.get("polholder_BMCevol")
-                ),
+                "polholder_age": int(request.form.get("polholder_age")),
+                "policy_age": int(request.form.get("policy_age")),
+                "vehicl_age": int(request.form.get("vehicl_age")),
+                "prem_final": float(request.form.get("prem_final")),
+                "policy_nbcontract": int(request.form.get("policy_nbcontract")),
+                "prem_freqperyear": (request.form.get("prem_freqperyear")),
+                "polholder_BMCevol": (request.form.get("polholder_BMCevol")),
             }
 
+            logger.info("Sending request to " "model service")
+
             response = requests.post(
-                "http://model-service:8001/infer",
+                MODEL_SERVICE_URL,
                 json=data,
-                timeout=10
+                timeout=10,
             )
 
             response.raise_for_status()
 
             result = response.json()
+
+            logger.info(f"Model service response: " f"{result}")
 
             prediction = (
                 "Policy will lapse"
@@ -71,7 +78,7 @@ def predict():
 
             probability = round(
                 float(result["probability"]),
-                3
+                3,
             )
 
             return render_template(
@@ -82,11 +89,11 @@ def predict():
 
         except Exception as e:
 
-            logger.error(str(e))
+            logger.error(f"Prediction failed: " f"{str(e)}")
 
             return render_template(
                 "home.html",
-                prediction="Error during prediction",
+                prediction=("Error during prediction"),
                 probability=None,
             )
 
@@ -95,11 +102,11 @@ def predict():
 
 if __name__ == "__main__":
 
-    port = int(
-        os.environ.get("PORT", 8000)
-    )
+    logger.info("Starting API gateway service")
+
+    port = int(os.environ.get("PORT", 8000))
 
     app.run(
         host="0.0.0.0",
-        port=port
+        port=port,
     )

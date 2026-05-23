@@ -1,0 +1,10 @@
+model:
+  threshold: 0.45
+
+logging:
+  level: INFO
+  log_dir: logs/model_service
+
+artifacts:
+  model_path: artifacts/model/model.pkl
+  preprocessor_path: artifacts/model/preprocessor.pkl

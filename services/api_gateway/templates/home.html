@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Policy Lapse Prediction</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
-    body { background-color: #f8f9fa; }
+    body {
+      background-color: #f8f9fa;
+    }
+
     .container {
       max-width: 700px;
       margin: 40px auto;
@@ -15,67 +19,68 @@
     }
   </style>
 </head>
+
 <body>
 
-<div class="container shadow">
-  <h2 class="text-center mb-4">Vehicle Policy Lapse Prediction</h2>
+  <div class="container shadow">
+    <h2 class="text-center mb-4">Vehicle Policy Lapse Prediction</h2>
 
-  <form action="{{ url_for('predict') }}" method="post">
+    <form action="{{ url_for('predict') }}" method="post">
 
-    <div class="mb-3">
-      <label class="form-label">Policy Holder Age</label>
-      <input type="number" name="polholder_age" class="form-control" required>
-    </div>
+      <div class="mb-3">
+        <label class="form-label">Policy Holder Age</label>
+        <input type="number" name="polholder_age" class="form-control" required>
+      </div>
 
-    <div class="mb-3">
-      <label class="form-label">Policy Age</label>
-      <input type="number" name="policy_age" class="form-control" required>
-    </div>
+      <div class="mb-3">
+        <label class="form-label">Policy Age</label>
+        <input type="number" name="policy_age" class="form-control" required>
+      </div>
 
-    <div class="mb-3">
-      <label class="form-label">Vehicle Age</label>
-      <input type="number" name="vehicl_age" class="form-control" required>
-    </div>
+      <div class="mb-3">
+        <label class="form-label">Vehicle Age</label>
+        <input type="number" name="vehicl_age" class="form-control" required>
+      </div>
 
-    <div class="mb-3">
-      <label class="form-label">Final Premium</label>
-      <input type="number" step="0.01" name="prem_final" class="form-control" required>
-    </div>
+      <div class="mb-3">
+        <label class="form-label">Final Premium</label>
+        <input type="number" step="0.01" name="prem_final" class="form-control" required>
+      </div>
 
-    <div class="mb-3">
-      <label class="form-label">Number of Active Contracts</label>
-      <input type="number" name="policy_nbcontract" class="form-control" required>
-    </div>
+      <div class="mb-3">
+        <label class="form-label">Number of Active Contracts</label>
+        <input type="number" name="policy_nbcontract" class="form-control" required>
+      </div>
 
-    <div class="mb-3">
-      <label class="form-label">Premium Payment Frequency</label>
-      <select name="prem_freqperyear" class="form-select" required>
-        <option value="1 per year">1 per year</option>
-        <option value="2 per year">2 per year</option>
-        <option value="4 per year">4 per year</option>
-        <option value="12 per year">12 per year</option>
-      </select>
-    </div>
+      <div class="mb-3">
+        <label class="form-label">Premium Payment Frequency</label>
+        <select name="prem_freqperyear" class="form-select" required>
+          <option value="1 per year">1 per year</option>
+          <option value="2 per year">2 per year</option>
+          <option value="4 per year">4 per year</option>
+          <option value="12 per year">12 per year</option>
+        </select>
+      </div>
 
-    <div class="mb-3">
-      <label class="form-label">Bonus–Malus Evolution</label>
-      <select name="polholder_BMCevol" class="form-select" required>
-        <option value="down">down</option>
-        <option value="stable">stable</option>
-        <option value="up">up</option>
-      </select>
-    </div>
+      <div class="mb-3">
+        <label class="form-label">Bonus–Malus Evolution</label>
+        <select name="polholder_BMCevol" class="form-select" required>
+          <option value="down">down</option>
+          <option value="stable">stable</option>
+          <option value="up">up</option>
+        </select>
+      </div>
 
-    <p class="text-muted">
-      Other details are assumed using standard defaults.
-    </p>
+      <p class="text-muted">
+        Other details are assumed using standard defaults.
+      </p>
 
-    <button type="submit" class="btn btn-primary w-100">
-      Predict Policy Lapse
-    </button>
-  </form>
+      <button type="submit" class="btn btn-primary w-100">
+        Predict Policy Lapse
+      </button>
+    </form>
 
-  {% if prediction %}
+    {% if prediction %}
     <div class="card mt-4 text-center
       {% if prediction == 'Policy will lapse' %}
         border-danger
@@ -96,8 +101,9 @@
         <p><b>Probability:</b> {{ probability * 100 | round(1) }}%</p>
       </div>
     </div>
-  {% endif %}
+    {% endif %}
 
-</div>
+  </div>
 </body>
+
 </html>

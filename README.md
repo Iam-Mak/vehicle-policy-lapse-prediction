@@ -87,23 +87,23 @@ This approach provided the best balance for a recall-focused insurance retention
 
 ### Default Threshold (0.50)
 
-| Metric | Score |
-|---|---|
-| Accuracy | 0.5848 |
+| Metric    | Score  |
+| --------- | ------ |
+| Accuracy  | 0.5848 |
 | Precision | 0.1690 |
-| Recall | 0.5719 |
-| F1-Score | 0.2609 |
-| ROC-AUC | 0.6049 |
+| Recall    | 0.5719 |
+| F1-Score  | 0.2609 |
+| ROC-AUC   | 0.6049 |
 
 ### Optimized Threshold (0.45)
 
-| Metric | Score |
-|---|---|
-| Accuracy | 0.4707 |
+| Metric    | Score  |
+| --------- | ------ |
+| Accuracy  | 0.4707 |
 | Precision | 0.1592 |
-| Recall | 0.7310 |
-| F1-Score | 0.2614 |
-| ROC-AUC | 0.6049 |
+| Recall    | 0.7310 |
+| F1-Score  | 0.2614 |
+| ROC-AUC   | 0.6049 |
 
 Threshold optimization significantly improved recall, increasing the model’s ability to identify potential lapse customers.
 
@@ -143,10 +143,11 @@ for the current project scope.
 
 ## System Architecture
 
+```
 services/
 ├── api_gateway/
 │   └── Flask web interface
-
+│
 ├── model_service/
 │   └── FastAPI prediction service
 
@@ -158,6 +159,7 @@ training/
 artifacts/
 └── model/
 
-notebooks/
+research/
 tests/
 docs/
+```

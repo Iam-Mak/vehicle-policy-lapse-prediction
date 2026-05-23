@@ -5,10 +5,13 @@ paths:
 model:
   random_state: 42
   threshold: 0.45
+  max_iter: 1000
+  class_weight: balanced
+  solver: liblinear
 
 logging:
   level: INFO
-  log_dir: logs
+  log_dir: logs/training
 
 data_ingestion:
   test_size: 0.2

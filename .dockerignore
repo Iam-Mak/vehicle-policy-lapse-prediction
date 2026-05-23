@@ -7,19 +7,23 @@ __pycache__/
 # Virtual environments
 .env
 .env*
-.venv
+.venv/
 venv/
-vpenv/
 
 # Git
 .git
-.gitignore
 
 # Data / artifacts
 data/
 logs/
 notebooks/
-artifacts/
+
+artifacts/*
+!artifacts/
+!artifacts/model/
+!artifacts/model/model.pkl
+!artifacts/model/preprocessor.pkl
+!artifacts/model/selected_features.npy
 
 # OS files
 .DS_Store
@@ -38,12 +42,3 @@ coverage/
 *.tmp
 *.swp
 *.bak
-
-# Docker (optional)
-Dockerfile
-docker-compose.yml
-
-artifacts/*
-!artifacts/model.pkl
-!artifacts/preprocessor.pkl
-!artifacts/selected_features.npy
