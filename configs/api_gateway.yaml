@@ -5,6 +5,7 @@ api:
 model_service:
   url: http://model-service:8001/api/v1/infer
 
+
 logging:
   level: INFO
   log_dir: logs/api_gateway

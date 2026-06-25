@@ -43,6 +43,12 @@ class InputData(BaseModel):
     polholder_BMCevol: str
 
 
+@app.get("/")
+def root():
+    return {
+        "message": "Vehicle Policy Lapse Prediction API"
+    }
+
 @app.get("/health")
 async def health_check() -> dict:
     """

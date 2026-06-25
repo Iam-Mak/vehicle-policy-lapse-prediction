@@ -17,14 +17,16 @@ CONFIG_PATH = CONFIG_DIR / "api_gateway.yaml"
 config = load_yaml_config(CONFIG_PATH)
 
 
+MODEL_SERVICE_URL = os.getenv(
+    "MODEL_SERVICE_URL",
+    config["model_service"]["url"],
+)
+
 app = Flask(
     __name__,
     static_folder="static",
     template_folder="templates",
 )
-
-MODEL_SERVICE_URL = config["model_service"]["url"]
-
 
 @app.route("/")
 def index():
