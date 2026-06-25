@@ -1,81 +1,48 @@
 name: Deploy Applications
 
 on:
-    push:
-        branches:
-            - feature/azure-container-apps
-        paths:
-            - "services/**"
-            - "infra/applications/**"
+  push:
+    branches:
+      - feature/azure-container-apps
 
-    workflow_dispatch:
+  workflow_dispatch:
 
 permissions:
-    id-token: write
-    contents: read
+  id-token: write
+  contents: read
 
 jobs:
-    deploy:
-        runs-on: ubuntu-latest
+  deploy:
+    runs-on: ubuntu-latest
 
-        defaults:
-            run:
-                working-directory: .
+    defaults:
+      run:
+        working-directory: infra/applications
 
-        steps:
-            - name: Checkout repository
-              uses: actions/checkout@v4
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-            - name: Azure Login
-              uses: azure/login@v2
-              with:
-                  client-id: ${{ secrets.AZURE_CLIENT_ID }}
-                  tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-                  subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      - name: Azure Login
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
-            - name: Login to Azure Container Registry
-              run: |
-                  az acr login --name vehiclelapseacr12345
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.13.0
 
-            - name: Build model-service image
-              run: |
-                  docker build \
-                    --platform linux/amd64 \
-                    -t vehiclelapseacr12345.azurecr.io/model-service:v1 \
-                    -f services/model_service/Dockerfile .
+      - name: Terraform Init
+        run: terraform init
 
-            - name: Push model-service image
-              run: |
-                  docker push vehiclelapseacr12345.azurecr.io/model-service:v1
+      - name: Terraform Validate
+        run: terraform validate
 
-            - name: Build api-gateway image
-              run: |
-                  docker build \
-                    --platform linux/amd64 \
-                    -t vehiclelapseacr12345.azurecr.io/api-gateway:v1 \
-                    -f services/api_gateway/Dockerfile .
+      - name: Terraform Plan
+        run: terraform plan
 
-            - name: Push api-gateway image
-              run: |
-                  docker push vehiclelapseacr12345.azurecr.io/api-gateway:v1
-
-            - name: Setup Terraform
-              uses: hashicorp/setup-terraform@v3
-              with:
-                  terraform_version: 1.13.0
-
-            - name: Terraform Init
-              working-directory: infra/applications
-              run: terraform init
-
-            - name: Terraform Validate
-              working-directory: infra/applications
-              run: terraform validate
-
-            - name: Terraform Plan
-              working-directory: infra/applications
-              run: terraform plan
-
-            - name: Terraform Apply
-              working-directory: infra/applications
-              run: terraform apply -auto-approve
+      - name: Terraform Apply
+        run: terraform apply -auto-approve
