@@ -30,6 +30,12 @@ jobs:
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
+      - name: Build and Push Docker Images
+        working-directory: .
+        run: |
+          chmod +x scripts/push_images.sh
+          ./scripts/push_images.sh
+
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
         with:
